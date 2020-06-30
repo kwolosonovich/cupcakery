@@ -27,7 +27,7 @@ def cupcakes():
     return render_template('cupcakes.html', cupcakes=cupcakes)
 
 @app.route('/api/cupcakes')
-def cupcakes():
+def list_cupcakes():
     '''Return cupcakes from API in JSON'''
     # serialize each cupcake in list using serialize()
     all_cupcakes = [cupcake.serialize() for cupcake in Cupcake.query.all()]
