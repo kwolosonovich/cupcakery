@@ -4,49 +4,52 @@
 
 {% block content %}
 
-    <div class="description">
-        <div class="container w-80 h-100">
-            <div class="row h-100">
-                <div class="col mx-auto h-100 main">
-                    <h2>Elegant. Unique. Delicious.</h2>
-                </div>
-                <div class="col des h-100 main">
-                    <img class="img-thumbnail content"
-                         src="https://images.unsplash.com/photo-1563778084459-859099e48677?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                         alt="">
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col h-100">
+                <img class="img-thumbnail img-fluid main-image"
+                     src="https://images.unsplash.com/photo-1563778084459-859099e48677?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                     alt="cupcakes">
+            </div>
+            <div class="col mx-auto h-100 align-self-center">
+                <h2 class="text-center">Elegant. <br>Unique. <br>Delicious.</h2>
             </div>
         </div>
     </div>
 
-    <div class="container cupcakes-section">
 
-        <div class="container heading">
+    <div class="container cupcakes-section mt-5">
+
+        <div class="container w-75">
             <h1>Menu</h1>
+            <hr class="width = 30%">
         </div>
+
         <div class="container" id="menu">
-            <div class="row row-cols-3">
+            <div class="row row-cols-3" id="menu-list">
 
 {#                iterate over cupcakes#}
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
-                      <img src="..." class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      </div>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                      </ul>
-                      <div class="card-body">
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                      </div>
-                    </div>
-                </div>
 
+{#                {% for cupcake in cupcakes %}#}
+
+{#                    <div class="col">#}
+{#                        <div class="card" style="width: 18rem;">#}
+{#                          <img src="{{ cupcake.image }}" class="card-img-top" alt="cupcake photo">#}
+{#                          <div class="card-body">#}
+{#                            <h5 class="card-title">{{ cupcake.flavor }}</h5>#}
+{#                          </div>#}
+{#                          <ul class="list-group list-group-flush">#}
+{#                            <li class="list-group-item">Size: {{ cupcake.size }}</li>#}
+{#                            <li class="list-group-item">Rating: {{ cupcake.rating }}</li>#}
+{#                          </ul>#}
+{#                          <div class="card-body">#}
+{#                            <button href="/api/cupcakes/{{ cupcake.id }}" class="btn">Card link</button>#}
+{#                            <a href="#" class="card-link">Another link</a>#}
+{#                          </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                {% endfor %}#}
 
             </div>
         </div>
