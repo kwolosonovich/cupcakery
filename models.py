@@ -25,3 +25,13 @@ class Cupcake(db.Model):
     image = db.Column(db.String,
                       nullable=False,
                       default=default_image_url)
+
+    def serialize(self):
+        '''Create a cupcake dictionary'''
+        return {
+            'id': self.id,
+            'flavor': self.flavor,
+            'size': self.size,
+            'rating': self.rating,
+            'image': self.image
+        }
