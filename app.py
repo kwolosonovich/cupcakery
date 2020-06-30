@@ -1,8 +1,8 @@
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
-# from models import db, connect_db
+from models import db, connect_db, Cupcake
 from flask_bootstrap import Bootstrap
-# from seed import seed_database
+from seed import seed_database
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -15,9 +15,9 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
 
-# connect_db(app)
+connect_db(app)
 
-# seed_database()
+seed_database()
 
 @app.route('/')
 def cupcakes():
