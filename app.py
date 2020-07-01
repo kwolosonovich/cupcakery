@@ -13,6 +13,7 @@ app.config['SECRET_KEY'] = "secret"
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///cupcakes"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
+
 debug = DebugToolbarExtension(app)
 
 connect_db(app)
@@ -22,9 +23,9 @@ connect_db(app)
 @app.route('/')
 def cupcakes():
     '''Render homepage.'''
-    cupcakes = Cupcake.query.all()
-    return render_template('cupcakes.html', cupcakes=cupcakes)
-    # return render_template('cupcakes.html')
+    # cupcakes = Cupcake.query.all()
+    # return render_template('cupcakes.html', cupcakes=cupcakes)
+    return render_template('cupcakes.html')
 
 @app.route('/api/cupcakes')
 def list_cupcakes():
@@ -59,4 +60,29 @@ def new_cupcake():
     db.session.add(cupcake)
     db.session.commit()
 
-    return (jsonify(cupcake=cupcake.to_dict()), 201)
+    return (jsonify(cupcake=cupcake.serialize()), 201)
+
+
+@app.route("/api/cupcakes/<int:id>", methods=["PATCH"])
+def update_cupcake(id):
+    '''Update cupcake in HTML, database and API'''
+
+    cupcake = Cupcake.query.get_or_404(id)
+
+    db.session.commit()
+
+    return (jsonify(cupcake=cupcake.serialize()))
+
+
+@app.route("/api/cupcakes/<int:id>", methods=["DELETE"])
+def delete_cupcake(id):
+    '''Delete cupcake from HTML, database and API.'''
+
+    cupcake = Cupcake.query.get_or_404(id)
+
+    db.session.delete(cupcake)
+    db.session.commit()
+
+    # where is message rendered in solution code?
+    return jsonify(message="Deleted")
+

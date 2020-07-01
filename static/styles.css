@@ -1,6 +1,13 @@
 body {
     vertical-align: center;
     text-align: center;
+    font-family: 'Raleway', sans-serif;
+}
+h1 {
+    font-family: 'Cinzel Decorative', cursive;
+}
+h2 {
+    line-height: 2;
 }
 #nav-style {
     text-align: right;
@@ -32,7 +39,7 @@ hr {
     width: 20%;
 }
 .main-image {
-    height: 500px;
+    max-height: 480px;
     width: auto;
     margin-right: 100px;
 }
