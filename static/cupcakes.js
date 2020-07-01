@@ -33,3 +33,29 @@ async function displayCupcakes() {
         $("#menu-list").append(addCupcake);
     }
 }
+
+// add new cupcake from form
+
+$('#add-cupcake').on("click", async function (e) {
+    e.preventDefault();
+
+    let flavor = $("#flavor-des").val();
+    let rating = $("#form-rating").val();
+    let size = $("#form-size").val();
+    var image = $("#form-image").val();
+
+    if (image.length === 0) {
+        image = 'https://tinyurl.com/demo-cupcake';
+    }
+
+    const response = await axios.post(`${BASE _URL}/cupcakes`, {
+        flavor,
+        rating,
+        size,
+        image
+    });
+
+    let newCupcake = $(cupcakeHTML(response.data.cupcake));
+    $("#menu-list").append(newCupcake);
+    $("#add-cupcake").trigger("reset");
+});

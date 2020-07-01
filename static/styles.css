@@ -1,6 +1,6 @@
 body {
     vertical-align: center;
-    text-align: right;
+    text-align: center;
 }
 #nav-style {
     text-align: right;
@@ -24,13 +24,12 @@ body {
 .cupcakes-section {
     text-align: center;
 }
-
 #label {
     border-radius: 7px;
 }
 hr {
     border-top: 10px dotted white;
-    width: 30%;
+    width: 20%;
 }
 .main-image {
     height: 500px;

@@ -22,8 +22,9 @@ connect_db(app)
 @app.route('/')
 def cupcakes():
     '''Render homepage.'''
-    # cupcakes = Cupcake.query.all()
-    return render_template('cupcakes.html')
+    cupcakes = Cupcake.query.all()
+    return render_template('cupcakes.html', cupcakes=cupcakes)
+    # return render_template('cupcakes.html')
 
 @app.route('/api/cupcakes')
 def list_cupcakes():
@@ -34,10 +35,28 @@ def list_cupcakes():
     return jsonify(cupcakes=cupcakes)
     # returns 200 in insomnia
 
-# @app.route('/api/cupcakes/<int:id>')
-# def get_single_cupcake(id):
-#     '''Returns info about one cupcake'''
-#     cupcake = Cupcake.query.get_or_404(id)
-#     # serialize and return cupcake
-#     return jsonify(cupcake=cupcake.serialize())
 
+@app.route('/api/cupcakes/<int:id>')
+def get_single_cupcake(id):
+    '''Returns info about one cupcake'''
+    cupcake = Cupcake.query.get_or_404(id)
+    # serialize and return cupcake
+    return jsonify(cupcake=cupcake.serialize())
+
+
+@app.route('/api/cupcakes', methods=['POST'])
+def new_cupcake():
+    '''Add a new cupcake and render HTML'''
+
+    data = request.json
+
+    cupcake = Cupcake(
+        flavor=data['flavor'],
+        rating=data['rating'],
+        size=data['size'],
+        image=data['image'] or None)
+
+    db.session.add(cupcake)
+    db.session.commit()
+
+    return (jsonify(cupcake=cupcake.to_dict()), 201)
