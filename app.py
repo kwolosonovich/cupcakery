@@ -83,6 +83,5 @@ def delete_cupcake(id):
     db.session.delete(cupcake)
     db.session.commit()
 
-    # where is message rendered in solution code?
     return jsonify(message="Deleted")
 

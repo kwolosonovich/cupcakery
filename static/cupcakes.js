@@ -1,6 +1,6 @@
 "use strict";
-const BASE_URL = "http://127.0.0.1:5002/api";
-
+const BASE_URL = "http://127.0.0.1:5000/api";
+// const BASE_URL = `${window.location.host}/api`
 
 function cupcakeHTML(cupcake) {
     return `
@@ -14,13 +14,14 @@ function cupcakeHTML(cupcake) {
                 <li class="list-group-item">Size: ${cupcake.size}</li>
                 <li class="list-group-item">Rating: ${cupcake.rating}</li>
               </ul>
-              <div class="card-body">
+              <div class="card-body" id="options">
               
 <!--              make into details-->
-                <button href="/api/cupcakes/${cupcake.id}" class="btn">Card link</button>
+                <a href="/api/cupcakes/${cupcake.id}" class="btn">Details</a>
                 
 <!--                make into delete btn-->
-                <a href="#" class="card-link">Another link</a>
+<!-- onclick="removeBtn()"-->
+                <button class="remove card-link" data-id="${cupcake.id}">Remove</button>
               </div>
             </div>
         </div>
@@ -31,11 +32,6 @@ function cupcakeHTML(cupcake) {
 
 async function displayCupcakes() {
     const response = await axios.get(`${BASE_URL}/cupcakes`);
-
-    // ************************
-    // response.set('Access-Control-Allow-Origin', '*');
-
-
 
     for (let cupcake of response.data.cupcakes) {
         let addCupcake = $(cupcakeHTML(cupcake));
@@ -69,5 +65,50 @@ $('#add-cupcake').on("click", async function(e) {
     $("#add-cupcake").trigger("reset");
 });
 
+
+
+// function removeBtn() {
+//     console.log('clicked')
+// }
+
+$("#options").on("click", '.remove', function(e) {
+    e.preventDefault();
+    console.log('div');
+});
+
+$(".remove").on('click', async function (e) {
+    e.preventDefault();
+    console.log('clicked');
+});
+
+// $("#remove-btn").on("click", function (e) {
+//     e.preventDefault();
+//     console.log(e.target
+// })
+//
+// $( "button.remove" ).click(function( event ) {
+//     console.log('body');
+// });
+
+// $( "body" ).click(function( event ) {
+//     console.log('body');
+// });
+// $("#remove-btn").click(async function(e) {
+//     e.preventDefault();
+//     let cupcake = $(e.target).data('id');
+// })
+// delete cupcake
+// $("#remove-btn").on("cli) {
+//
+// })
+
+// $("#remove-btn").click(function (a) {
+//     console.log('okay')
+// })
+//
+// $("a").click(function(e){
+//     e.precentDefault();
+//     console.log('clicked')
+// })
 
 $(displayCupcakes);
