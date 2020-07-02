@@ -4,24 +4,21 @@ const BASE_URL = "http://127.0.0.1:5000/api";
 
 function cupcakeHTML(cupcake) {
     return `
-        <div class="col">
-            <div class="card" style="width: 18rem;">
+        <div class="col mb-4">
+            <div class="card h-100" style="width: 18rem;">
               <img src="${cupcake.image}" class="card-img-top" alt="cupcake photo">
               <div class="card-body">
                 <h5 class="card-title">${cupcake.flavor}</h5>
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Size: ${cupcake.size}</li>
-                <li class="list-group-item">Rating: ${cupcake.rating}</li>
-              </ul>
+              <div class="list-group list-group-flush" id="details-list" role="tablist">
+                <div class="list-group-item-action" role="tab" data-toggle="list" id="size">Size: ${cupcake.size}</div>
+                <div class="list-group-item-action" role="tab" data-toggle="list" id="rating">Rating: ${cupcake.rating}</div>
+              </div>
               <div class="card-body" id="options">
+             
+                <button href="/api/cupcakes/${cupcake.id}" class="btn details">Details</button>
+                <button class="remove card-link btn" onclick="removeBtn()" data-id="${cupcake.id}">Remove</button>
               
-<!--              make into details-->
-                <a href="/api/cupcakes/${cupcake.id}" class="btn">Details</a>
-                
-<!--                make into delete btn-->
-<!-- onclick="removeBtn()"-->
-                <button class="remove card-link" data-id="${cupcake.id}">Remove</button>
               </div>
             </div>
         </div>
@@ -66,6 +63,12 @@ $('#add-cupcake').on("click", async function(e) {
 });
 
 
+$('.details').on('click', function (e) {
+  e.preventDefault()
+    console.log('details clicked')
+  $("#rating").tab('show')
+    $("#size").tab('show')
+})
 
 // function removeBtn() {
 //     console.log('clicked')
@@ -96,10 +99,6 @@ $(".remove").on('click', async function (e) {
 // $("#remove-btn").click(async function(e) {
 //     e.preventDefault();
 //     let cupcake = $(e.target).data('id');
-// })
-// delete cupcake
-// $("#remove-btn").on("cli) {
-//
 // })
 
 // $("#remove-btn").click(function (a) {
