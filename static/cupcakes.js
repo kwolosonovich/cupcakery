@@ -1,27 +1,27 @@
 "use strict";
 const BASE_URL = "http://127.0.0.1:5000/api";
 
-// const BASE_URL = `${window.location.host}/api`
+// const BASE_URL = `${location.host}/api`
 
 function cupcakeHTML(cupcake) {
     return `
-        <div class="col mb-4">
-            <div class="card h-100" style="width: 18rem;">
+<!--        <div class="col">-->
+            <div class="card mh-100 m-2 card-border-light" style="width: 18rem;">
                 <img src="${cupcake.image}" class="card-img-top" alt="cupcake photo">
             <div class="card-body">
                 <h5 class="card-title">${cupcake.flavor}</h5>
             </div>
             <div class="card-body" id="options">
                 <div class="list-group" id="myList" role="tablist">
-                    <a class="list-group-item-action list-group-item" href="/api/cupcakes/${cupcake.id}" data-toggle="list">Details</a>
+                    <a class="list-group-item-action list-group-item" id="${cupcake.id}" href="/api/cupcakes/${cupcake.id}" data-toggle="list">Details</a>
                 </div>
                     <div class="tab-content">
                     <!-- append tab-pane with details on click -->
                     </div>                   
-                <button class="remove card-link btn" data-id="${cupcake.id}">Remove</button>
+                <button class="remove card-link btn" id="${cupcake.id}" data-id="${cupcake.id}">Remove</button>
             </div>
             </div>
-        </div>
+<!--        </div>-->
     `;
 }
 
@@ -65,30 +65,41 @@ $('#add-cupcake').on("click", async function (e) {
 
 // show cupcake details
 
-$('.details').on('click', function (e) {
+// $('#menu-list').on('click', function (e) {
+//     e.preventDefault();
+//     console.log('details clicked');
+//     // addDetails();
+// })
+
+
+
+$("#menu-list").on('click', function (e) {
     e.preventDefault();
-    console.log('details clicked');
-    // addDetails();
-})
 
-// function addDetails() {
-//     $(".tab-content").append(
-//         `<div class="tab-pane" role="tabpanel" data-toggle="list" id="details-list">
-//             Size: ${cupcake.size} Rating: ${cupcake.rating}
-//         </div>`
-//     );
-// };
+    let t = $(e.target);
+    let cupcake = $(e.target).closest("div").parent();
+    let cupcakeId = e.target.id;
 
-
-$("#options").on("click", '.remove', function (e) {
-    e.preventDefault();
-    console.log('div-options clicked');
+    if (t.is("button")) {
+        removeCupcake(cupcake, cupcakeId);
+     } else if (t.is("a")){
+        showDetails(cupcakeId);
+    }
 });
 
-$(".remove").on('click', async function (e) {
-    e.preventDefault();
-    console.log('class clicked');
-});
+async function showDetails(cupcakeId) {
+        await axios.get(`${BASE_URL}/cupcakes/${cupcakeId}`);
+    $(".tab-content").append(
+        <div class="tab-pane" role="tabpanel" data-toggle="list" id="details-list">
+            `Size: ${cupcake.size} Rating: ${cupcake.rating}`
+        </div>
+    );
+};
+
+async function removeCupcake(cupcake, cupcakeId) {
+    await axios.delete(`${BASE_URL}/cupcakes/${cupcakeId}`);
+    cupcake.remove();
+}
 
 
 $(displayCupcakes);
