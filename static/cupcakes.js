@@ -1,10 +1,6 @@
+"use strict";
+const BASE_URL = "http://127.0.0.1:5002/api";
 
-const BASE_URL = "http://localhost:5000/api";
-
-// ******************
-// const BASE_URL = "Access-Control-Allow-Origin: http://localhost:5000/api";
-
-// generate html for each cupcake
 
 function cupcakeHTML(cupcake) {
     return `

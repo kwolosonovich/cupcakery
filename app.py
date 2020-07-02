@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, render_template, redirect, flash, ses
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Cupcake
 from flask_bootstrap import Bootstrap
-# from seed import seed_database
+from seed import seed_database
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -18,7 +18,7 @@ debug = DebugToolbarExtension(app)
 
 connect_db(app)
 
-# seed_database()
+seed_database()
 
 @app.route('/')
 def cupcakes():
