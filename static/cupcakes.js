@@ -1,5 +1,6 @@
 "use strict";
 const BASE_URL = "http://127.0.0.1:5000/api";
+
 // const BASE_URL = `${window.location.host}/api`
 
 function cupcakeHTML(cupcake) {
@@ -10,20 +11,21 @@ function cupcakeHTML(cupcake) {
               <div class="card-body">
                 <h5 class="card-title">${cupcake.flavor}</h5>
               </div>
-              <div class="list-group list-group-flush" id="details-list" role="tablist">
-                <div class="list-group-item-action" role="tab" data-toggle="list" id="size">Size: ${cupcake.size}</div>
-                <div class="list-group-item-action" role="tab" data-toggle="list" id="rating">Rating: ${cupcake.rating}</div>
-              </div>
               <div class="card-body" id="options">
-             
-                <button href="/api/cupcakes/${cupcake.id}" class="btn details">Details</button>
-                <button class="remove card-link btn" onclick="removeBtn()" data-id="${cupcake.id}">Remove</button>
-              
+
+                   <div class="list-group" id="myList" role="tablist">
+                        <a class="list-group-item-action list-group-item" href="/api/cupcakes/${cupcake.id}" data-toggle="list">Details</a>
+                   </div>
+                  <div class="tab-content">
+<!--                  append tab-pane with details on click-->
+                  </div>                   
+                   <button class="remove card-link btn" data-id="${cupcake.id}">Remove</button>
               </div>
             </div>
         </div>
     `;
 }
+
 
 // add cupcakes to cupcakes.html
 
@@ -38,7 +40,7 @@ async function displayCupcakes() {
 
 // add new cupcake from form
 
-$('#add-cupcake').on("click", async function(e) {
+$('#add-cupcake').on("click", async function (e) {
     e.preventDefault();
 
     let flavor = $("#flavor").val();
@@ -62,19 +64,27 @@ $('#add-cupcake').on("click", async function(e) {
     $("#add-cupcake").trigger("reset");
 });
 
+// show cupcake details
 
 $('.details').on('click', function (e) {
-  e.preventDefault()
+    e.preventDefault()
     console.log('details clicked')
-  $("#rating").tab('show')
-    $("#size").tab('show')
+    // addDetails();
 })
+
+// function addDetails() {
+//     $(".tab-content").append(
+//         `<div class="tab-pane" role="tabpanel" data-toggle="list" id="details-list">
+//             Size: ${cupcake.size} Rating: ${cupcake.rating}
+//         </div>`
+//     );
+// };
 
 // function removeBtn() {
 //     console.log('clicked')
 // }
 
-$("#options").on("click", '.remove', function(e) {
+$("#options").on("click", '.remove', function (e) {
     e.preventDefault();
     console.log('div');
 });
