@@ -65,14 +65,6 @@ $('#add-cupcake').on("click", async function (e) {
 
 // show cupcake details
 
-// $('#menu-list').on('click', function (e) {
-//     e.preventDefault();
-//     console.log('details clicked');
-//     // addDetails();
-// })
-
-
-
 $("#menu-list").on('click', function (e) {
     e.preventDefault();
 
@@ -88,18 +80,18 @@ $("#menu-list").on('click', function (e) {
 });
 
 async function showDetails(cupcakeId) {
-        await axios.get(`${BASE_URL}/cupcakes/${cupcakeId}`);
-    $(".tab-content").append(
+    const response = await axios.get(`${BASE_URL}/cupcakes/${cupcakeId}`);
+    const cupcake = response.data.cupcake;
+    $(".tab-content").append(`
         <div class="tab-pane" role="tabpanel" data-toggle="list" id="details-list">
-            `Size: ${cupcake.size} Rating: ${cupcake.rating}`
+            Size: ${cupcake.size} Rating: ${cupcake.rating}
         </div>
-    );
+    `);
 };
 
 async function removeCupcake(cupcake, cupcakeId) {
     await axios.delete(`${BASE_URL}/cupcakes/${cupcakeId}`);
     cupcake.remove();
 }
-
 
 $(displayCupcakes);
